@@ -11,14 +11,16 @@ router.get('/', async (req, res)=>{
     }
 })
 //getting one
-router.get('/:id', getUser, (req, res) => { 
+router.get('/user/:id', getUser, (req, res) => { 
     res.json(res.user)
 })
 //creating one
-router.post('/', async (req, res)=>{  
+router.post('/user', async (req, res)=>{  
     const user = new User ({
-        name:req.body.name,
-        subscribedToChannel: req.body.subscribedToChannel 
+        user_fullname:req.body.user_fullname,
+        email:req.body.email,
+        phone_number:req.body.phone_number,
+        password:req.body.password
     })
     try{
         const newUser = await user.save()
@@ -28,12 +30,18 @@ router.post('/', async (req, res)=>{
     }
 })
 //update one
-router.patch('/:id',getUser,async  (req, res)=>{
-    if (req.body.name !== null){
-        res.user.name = req.body.name
+router.patch('/user/:id',getUser,async  (req, res)=>{
+    if (req.body.user_fullname !== null){
+        res.user.user_fullname = req.body.user_fullname
         }
-    if (req.body.userTojoin){
-        res.user.userTojoin = req.body.userTojoin
+    if (req.body.email !== null){
+        res.user.email = req.body.email
+        }
+    if (req.body.phone_number !== null){
+        res.user.phone_number = req.body.phone_number
+        }
+    if (req.body.password !== null){
+        res.user.password = req.body.password
         }
     try{
         const updatedUser = await res.user.save()
@@ -43,7 +51,7 @@ router.patch('/:id',getUser,async  (req, res)=>{
     }
 })
 //deleting one
-router.delete('/:id',getUser, async (req, res)=>{
+router.delete('/user/:id',getUser, async (req, res)=>{
     try{
         await res.User.remove();
         res.json({ message:'deleted user'})

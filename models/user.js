@@ -22,10 +22,10 @@ const userSchema = new mongoose.Schema({
         required:true,
         default:Date.now
     },
-    cart:{
-        type: String,
-        required:true
-    }
+    // cart:{
+    //     type: String,
+    //     required:true
+    // }
 })
 
 module.exports= mongoose.model('user',userSchema)
